@@ -7,6 +7,7 @@ public class GridManager : MonoBehaviour
 {
     public int gridSize;
     [SerializeField] private Cell cellPrefab;
+    [SerializeField] private CameraHandler cameraHandler;
     private Cell[,] cells;
     private const int comboCount = 3;
     private List<Cell> contiguity = new List<Cell>();
@@ -14,6 +15,17 @@ public class GridManager : MonoBehaviour
     private void Start()
     {
         InitializeGrid();
+        SetCamera();
+    }
+
+    private void SetCamera()
+    {
+        List<Transform> cellTransforms = new List<Transform>();
+        foreach(var element in cells)
+        {
+            cellTransforms.Add(element.transform);
+        }
+        cameraHandler.SetTargets(cellTransforms);
     }
 
     private void InitializeGrid()
